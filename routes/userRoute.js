@@ -78,11 +78,11 @@ router.post("/login", async (req, res) => {
       admin: findUser.admin,
     };
     jwt.sign(tokenData, privateKey, {}, function (err, token) {
-      //   res.setHeader(
-      //     "Set-Cookie",
-      //     cookie.serialize("dashToken", token, cookieOptions)
-      //   );
-      res.cookie("token", token);
+      res.setHeader(
+        "Set-Cookie",
+        cookie.serialize("dashToken", token, cookieOptions)
+      );
+      //   res.cookie("token", token);
       res.send("Login Success");
     });
   } catch (error) {
@@ -93,18 +93,17 @@ router.post("/login", async (req, res) => {
 
 router.get("/verify", async (req, res) => {
   try {
-    // const cookies = cookie.parse(req.headers.cookie || "");
-    // const token = cookies.token || null;
-    const cookies = req.cookies;
-    const { token } = cookies;
+    const cookies = cookie.parse(req.headers.cookie || "");
+    const token = cookies.token || null;
     if (token) {
-      const decodedToken = jwt.verify(token, privateKey);
+      const decodedToken = await jwt.verify(token, privateKey);
       res.json(decodedToken);
     } else {
       return res.status(400).json("Forbidden");
     }
   } catch (error) {
     res.status(500).json("Internal Server Error");
+    console.log(error);
   }
 });
 
