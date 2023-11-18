@@ -82,8 +82,11 @@ router.post("/login", async (req, res) => {
       //     "Set-Cookie",
       //     cookie.serialize("dashToken", token, cookieOptions)
       //   );
-      res.cookie("token", token).json(token);
-      //   res.send("Login Success");
+      res.cookie("token", token, {
+        maxAge: 9000000,
+        httpOnly: true,
+      });
+      res.send(token);
     });
   } catch (error) {
     console.log(error);
