@@ -94,6 +94,7 @@ router.post("/login", async (req, res) => {
 router.get("/verify", async (req, res) => {
   try {
     const { token } = req.cookies;
+    console.log(token, req.cookies);
     if (token) {
       const decodedToken = jwt.verify(token.dashToken, privateKey);
       res.json(decodedToken);
