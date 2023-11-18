@@ -95,10 +95,10 @@ router.get("/verify", async (req, res) => {
   try {
     // const cookies = cookie.parse(req.headers.cookie || "");
     // const token = cookies.dashToken || null;
-    const token = req.cookies.dashToken || null;
+    const token = req.cookies || null;
     console.log(req.cookies);
-    if (token) {
-      const decodedToken = jwt.verify(token, privateKey);
+    if (token.dashtoken) {
+      const decodedToken = jwt.verify(token.dashToken, privateKey);
       res.json(decodedToken);
     } else {
       return res.status(400).json("Forbidden");
