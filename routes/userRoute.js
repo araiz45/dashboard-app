@@ -93,7 +93,7 @@ router.post("/login", async (req, res) => {
 
 router.get("/verify", async (req, res) => {
   try {
-    const cookies = cookie.parse(req.headers.cookie);
+    const cookies = cookie.parse(req.headers.cookie || "");
     const token = cookies.dashToken;
     console.log(token);
     if (token) {
