@@ -78,12 +78,12 @@ router.post("/login", async (req, res) => {
       admin: findUser.admin,
     };
     jwt.sign(tokenData, privateKey, {}, function (err, token) {
-      res.setHeader(
-        "Set-Cookie",
-        cookie.serialize("dashToken", token, cookieOptions)
-      );
-      //   res.cookie("dashToken", token);
-      res.send("Login Success");
+      //   res.setHeader(
+      //     "Set-Cookie",
+      //     cookie.serialize("dashToken", token, cookieOptions)
+      //   );
+      res.cookie("dashToken", token).json("Login Success");
+      //   res.send("Login Success");
     });
   } catch (error) {
     console.log(error);
@@ -93,8 +93,9 @@ router.post("/login", async (req, res) => {
 
 router.get("/verify", async (req, res) => {
   try {
-    const cookies = cookie.parse(req.headers.cookie || "");
-    const token = cookies.dashToken;
+    // const cookies = cookie.parse(req.headers.cookie || "");
+    // const token = cookies.dashToken || null;
+    const token = req.cookies.dashToken;
     console.log(token);
     if (token) {
       const decodedToken = jwt.verify(token, privateKey);
