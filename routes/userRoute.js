@@ -82,7 +82,7 @@ router.post("/login", async (req, res) => {
         "Set-Cookie",
         cookie.serialize("dashToken", token, cookieOptions)
       );
-      res.cookie("token", token);
+      res.cookie("dashToken", token);
       res.send("Login Success");
     });
   } catch (error) {
@@ -94,7 +94,7 @@ router.post("/login", async (req, res) => {
 router.get("/verify", async (req, res) => {
   try {
     const cookies = cookie.parse(req.headers.cookie || "");
-    const token = cookies.token || null;
+    const token = cookies.dashToken || null;
     console.log(token);
     if (token) {
       const decodedToken = await jwt.verify(token, privateKey);
