@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import database from "./database/database.js";
 import entryRoute from "./routes/entryRoute.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 database().catch((err) => console.log(err.message));
@@ -15,6 +16,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(cookieParser());
 app.use("/api/user", userRouter);
 app.use("/api/entry", entryRoute);
 
