@@ -95,7 +95,7 @@ router.get("/verify", async (req, res) => {
     const { token } = req.cookies;
     console.log(token, req.cookies);
     if (token) {
-      const decodedToken = jwt.verify(token.dashToken, privateKey);
+      const decodedToken = jwt.verify(token, privateKey);
       res.json(decodedToken);
     } else {
       return res.status(400).json("Forbidden");
