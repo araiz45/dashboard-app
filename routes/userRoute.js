@@ -95,8 +95,8 @@ router.get("/verify", async (req, res) => {
   try {
     // const cookies = cookie.parse(req.headers.cookie || "");
     // const token = cookies.dashToken || null;
-    const token = req.cookies.dashToken;
-    console.log(token);
+    const token = req.cookies.dashToken || null;
+    console.log(req.cookies);
     if (token) {
       const decodedToken = jwt.verify(token, privateKey);
       res.json(decodedToken);
