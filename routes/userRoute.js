@@ -7,7 +7,7 @@ const router = express.Router();
 const privateKey = "kdsljflksdjflksdj";
 const cookieOptions = {
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-  httpOnly: true,
+  //   httpOnly: true,
   secure: "production" === "production",
   sameSite: "Lax",
   path: "/",
@@ -82,7 +82,7 @@ router.post("/login", async (req, res) => {
         "Set-Cookie",
         cookie.serialize("dashToken", token, cookieOptions)
       );
-      res.cookie("dashToken", token);
+      //   res.cookie("dashToken", token);
       res.send("Login Success");
     });
   } catch (error) {
