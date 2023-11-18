@@ -93,11 +93,11 @@ router.post("/login", async (req, res) => {
 
 router.get("/verify", async (req, res) => {
   try {
-    const cookies = cookie.parse(req.headers.cookie || "");
-    const token = cookies.dashToken || null;
+    const cookies = cookie.parse(req.headers.cookie);
+    const token = cookies.dashToken;
     console.log(token);
     if (token) {
-      const decodedToken = await jwt.verify(token, privateKey);
+      const decodedToken = jwt.verify(token, privateKey);
       res.json(decodedToken);
     } else {
       return res.status(400).json("Forbidden");
