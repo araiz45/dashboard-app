@@ -82,7 +82,7 @@ router.post("/login", async (req, res) => {
         "Set-Cookie",
         cookie.serialize("dashToken", token, cookieOptions)
       );
-      //   res.cookie("token", token);
+      res.cookie("token", token);
       res.send("Login Success");
     });
   } catch (error) {
