@@ -84,7 +84,7 @@ router.post("/login", async (req, res) => {
       //   );
       res.cookie("token", token, {
         maxAge: 9000000,
-        httpOnly: true,
+        httpOnly: false,
       });
       res.send(token);
     });
