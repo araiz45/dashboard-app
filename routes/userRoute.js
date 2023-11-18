@@ -95,6 +95,7 @@ router.get("/verify", async (req, res) => {
   try {
     const cookies = cookie.parse(req.headers.cookie || "");
     const token = cookies.token || null;
+    console.log(token);
     if (token) {
       const decodedToken = await jwt.verify(token, privateKey);
       res.json(decodedToken);
